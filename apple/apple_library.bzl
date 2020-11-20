@@ -26,4 +26,5 @@ def apple_library(**kwargs):
     See [mixed_static_framework](#mixed_static_framework) for the documentation
     of each attribute.
     """
+    print("Rappi: apple_library")
     mixed_static_framework(**kwargs)

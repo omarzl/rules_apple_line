@@ -85,7 +85,7 @@ def _swift_static_framework_impl(ctx):
         ctx.file.framework,
     ]
     zipper_args = []
-
+    print("Rappi line _swift_static_framework_impl")
     # Get the `swiftdoc` and `swiftmodule` files for each architecture.
     for arch, target in ctx.split_attr.swift_partial_target.items():
         cpu = _PLATFORM_TO_SWIFTMODULE[arch]

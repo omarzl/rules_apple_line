@@ -86,6 +86,8 @@ def _mixed_static_framework_impl(ctx):
     bundle_info = ctx.attr.framework[AppleBundleInfo]
     framework_name = bundle_info.bundle_name + bundle_info.bundle_extension
     new_framework = ctx.actions.declare_file(ctx.label.name + ".zip")
+    print("Rappi mixed rule framework name: ", new_framework)
+    print("Rappi mixed rule inputs: ", ctx.file.framework)
     inputs = [
         ctx.file.framework,
     ]
@@ -306,6 +308,9 @@ def mixed_static_framework(
       minimum_os_version: Minimum os version.
       **kwargs: Additional arguments being passed through.
     """
+
+    print("Rappi: mixed_static_framework ", name)
+
     swift_srcs = []
     objc_srcs = []
     private_hdrs = []
@@ -381,6 +386,7 @@ def mixed_static_framework(
         "-fmodule-map-file=$(execpath {})".format(objc_module_map),
     ]
 
+    print("Rappi: about to trigger swift_library", swift_srcs)
     swift_library(
         name = swift_library_name,
         srcs = swift_srcs,
@@ -460,6 +466,7 @@ def mixed_static_framework(
     if avoid_deps == None:
         avoid_deps = deps
 
+    print("Rappi: about to trigger _ios_static_framework")
     _ios_static_framework(
         name = name + ".intermediate",
         hdrs = hdrs + textual_hdrs + [
@@ -474,6 +481,7 @@ def mixed_static_framework(
         umbrella_header = umbrella_header,
     )
 
+    print("Rappi: about to trigger _mixed_static_framework")
     _mixed_static_framework(
         name = name + "Framework",
         framework = name + ".intermediate",

@@ -227,6 +227,8 @@ def objc_static_framework(
         textual_hdrs = kwargs.get("textual_hdrs", []),
     )
 
+    print("Rappi - linkopts", kwargs.get("linkopts", []))
+
     ios_static_framework(
         name = name + "Framework",
         avoid_deps = avoid_deps,
