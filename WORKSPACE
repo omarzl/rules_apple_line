@@ -21,13 +21,6 @@ load("//apple:repositories.bzl", "rules_apple_line_dependencies")
 rules_apple_line_dependencies()
 
 load(
-    "@build_bazel_apple_support//lib:repositories.bzl",
-    "apple_support_dependencies",
-)
-
-apple_support_dependencies()
-
-load(
     "@build_bazel_rules_apple//apple:repositories.bzl",
     "apple_rules_dependencies",
 )
@@ -42,11 +35,11 @@ load(
 swift_rules_dependencies()
 
 load(
-    "@com_google_protobuf//:protobuf_deps.bzl",
-    "protobuf_deps",
+    "@build_bazel_rules_swift//swift:extras.bzl",
+    "swift_rules_extra_dependencies",
 )
 
-protobuf_deps()
+swift_rules_extra_dependencies()
 
 load("@bazel_skylib//:workspace.bzl", "bazel_skylib_workspace")
 
@@ -84,6 +77,10 @@ http_archive(
 http_archive(
     name = "zld",
     build_file = "//third_party:zld.BUILD",
-    sha256 = "0b48ad64ddf8fcbc75b872dcf3b0ed427c9c9eeb843ce68383ce22fa8197b7f9",
-    url = "https://github.com/thii/zld/releases/download/1.2.1/zld.tar.xz",
+    sha256 = "96fc20e552795a06edccf53445f88fb448687509c51348fa6c27cce823c23f5e",
+    url = "https://github.com/michaeleisel/zld/releases/download/1.2.1/zld.zip",
 )
+
+load("//apple:repositories.bzl", "rules_apple_line_test_dependencies")
+
+rules_apple_line_test_dependencies()

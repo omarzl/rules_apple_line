@@ -26,7 +26,7 @@ def _apple_linker_inputs_impl(ctx):
         )
         linkopts.append(expanded_opt)
 
-    linkopts_depset = depset(linkopts)
+    linkopts_depset = depset(direct = linkopts, order = "topological")
     linker_inputs_depset = depset(ctx.files.linker_inputs)
 
     objc_provider = apple_common.new_objc_provider(
@@ -34,22 +34,7 @@ def _apple_linker_inputs_impl(ctx):
         linkopt = linkopts_depset,
     )
 
-    cc_linker_input = cc_common.create_linker_input(
-        additional_inputs = linker_inputs_depset,
-        owner = ctx.label,
-        user_link_flags = linkopts_depset,
-    )
-    cc_linking_context = cc_common.create_linking_context(
-        linker_inputs = depset([cc_linker_input]),
-    )
-    cc_info = CcInfo(
-        linking_context = cc_linking_context,
-    )
-
-    # objc_provider can be removed once apple_binary is reimplemented in
-    # Starlark
     return [
-        cc_info,
         objc_provider,
     ]
 

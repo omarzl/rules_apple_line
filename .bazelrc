@@ -12,7 +12,10 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-build --strategy=Stardoc=standalone
-
-build --incompatible_objc_compile_info_migration
+build --subcommands
+build --strategy=Stardoc=local
 build --incompatible_strict_action_env
+
+# Disable the Swift compilation worker
+build --define=RULES_SWIFT_BUILD_DUMMY_WORKER=1
+build --strategy=SwiftCompile=sandboxed
