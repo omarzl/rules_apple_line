@@ -490,7 +490,7 @@ def mixed_static_framework(
         avoid_deps = deps
 
     print("Rappi: about to trigger _ios_static_framework")
-    _ios_static_framework(
+    ios_static_framework(
         name = name + ".intermediate",
         hdrs = hdrs + textual_hdrs + [
             ":" + name + ".hdrs",
