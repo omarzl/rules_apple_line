@@ -143,11 +143,14 @@ def swift_static_framework(
             copt,
         ]
 
+    features = kwargs.get("features", [])
+
     swift_library(
         name = swift_library_name,
         srcs = swift_srcs,
         swiftc_inputs = swiftc_inputs,
         copts = swift_copts,
+        features = features,
         module_name = module_name,
         visibility = visibility,
         deps = swift_deps,

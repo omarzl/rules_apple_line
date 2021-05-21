@@ -407,6 +407,9 @@ def mixed_static_framework(
         "-fmodule-map-file=$(execpath {})".format(objc_module_map),
     ]
 
+    features = kwargs.get("features", [])
+    features += ["swift.no_generated_module_map"]
+
     print("Rappi: about to trigger swift_library", swift_srcs)
     swift_library(
         name = swift_library_name,
@@ -415,9 +418,7 @@ def mixed_static_framework(
         copts = swift_copts,
         module_name = module_name,
         visibility = ["//visibility:private"],
-        features = [
-            "swift.no_generated_module_map",
-        ],
+        features = features,
         deps = swift_deps,
         generates_header = True,
         generated_header_name = module_name + "-Swift.h",
